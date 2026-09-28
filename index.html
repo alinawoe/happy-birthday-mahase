@@ -4,16 +4,13 @@
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Cute Wrapped Rückblick</title>
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Fredoka:wght@400;600;700&family=Nunito:wght@700;900&display=swap" rel="stylesheet">
   
   <style>
     * {
       box-sizing: border-box;
       margin: 0;
       padding: 0;
-      font-family: 'Fredoka', 'Nunito', sans-serif;
+      font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
     }
 
     body {
@@ -75,7 +72,7 @@
       flex-direction: column;
       align-items: center;
       justify-content: space-between;
-      padding: 50px 20px 40px;
+      padding: 40px 20px 40px;
       text-align: center;
       z-index: 10;
       animation: fadeIn 0.4s ease-in-out;
@@ -97,27 +94,6 @@
     .bg-4 { background: linear-gradient(145deg, #b5ead7, #ffdac1, #ffb7b2); }
     .bg-5 { background: linear-gradient(145deg, #ffdac1, #ffb7b2, #fecfef); }
 
-    /* Cute Wrapped Card Title */
-    .slide-title-box {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 2px solid rgba(255, 255, 255, 0.4);
-      border-radius: 20px;
-      padding: 16px 20px;
-      margin-top: 10px;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
-      z-index: 20;
-    }
-
-    .slide-title {
-      font-size: 1.25rem;
-      font-weight: 700;
-      color: #2d3436;
-      line-height: 1.4;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
-    }
-
     /* Enhanced Polaroid Frame */
     .polaroid-container {
       position: relative;
@@ -129,7 +105,7 @@
       box-shadow: 0 18px 35px rgba(0,0,0,0.25);
       transform: rotate(-1.5deg);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      margin-bottom: 20px;
+      margin-top: 15px;
     }
 
     .polaroid-container::before {
@@ -152,6 +128,28 @@
       object-fit: cover;
       border-radius: 6px;
       background: #f0f0f0;
+    }
+
+    /* Cute Wrapped Card Title - Jetzt unten */
+    .slide-title-box {
+      background: rgba(255, 255, 255, 0.25);
+      backdrop-filter: blur(12px);
+      -webkit-backdrop-filter: blur(12px);
+      border: 2px solid rgba(255, 255, 255, 0.4);
+      border-radius: 20px;
+      padding: 18px 20px;
+      margin-bottom: 10px;
+      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      z-index: 20;
+      width: 100%;
+    }
+
+    .slide-title {
+      font-size: 1.2rem;
+      font-weight: bold;
+      color: #2d3436;
+      line-height: 1.4;
+      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
     }
 
     /* Navigation Click Zones */
@@ -190,7 +188,7 @@
 
     .overlay-title {
       font-size: 1.25rem;
-      font-weight: 700;
+      font-weight: bold;
       color: #2d3436;
       margin-bottom: 20px;
       line-height: 1.4;
@@ -210,7 +208,7 @@
       padding: 14px 20px;
       border-radius: 50px;
       font-size: 1rem;
-      font-weight: 700;
+      font-weight: bold;
       cursor: pointer;
       box-shadow: 0 6px 15px rgba(255, 117, 140, 0.4);
       transition: all 0.2s ease;
@@ -273,91 +271,91 @@
 
   <!-- SLIDE 1 -->
   <div class="slide bg-1 active">
-    <div class="slide-title-box">
-      <div class="slide-title">"Ring ring, ein Mahase hat Geburtstag. Happy Birthday! Schau, was wir schon alles erlebt haben:"</div>
-    </div>
     <div class="polaroid-container">
       <img src="kat1_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Ring ring, ein Mahase hat Geburtstag. Happy Birthday! Schau, was wir schon alles erlebt haben:"</div>
     </div>
   </div>
 
   <!-- SLIDE 2 -->
   <div class="slide bg-2">
-    <div class="slide-title-box">
-      <div class="slide-title">"Unsere ersten Wg-Fotos zusammen, von unserem ersten Ausflug"</div>
-    </div>
     <div class="polaroid-container">
       <img id="img-kat2" src="kat2_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Unsere ersten Wg-Fotos zusammen, von unserem ersten Ausflug"</div>
     </div>
   </div>
 
   <!-- SLIDE 3 -->
   <div class="slide bg-3">
-    <div class="slide-title-box">
-      <div class="slide-title">"Hier haben wir Codenames in jeder Konstellation gespielt und hatten einen ganz toll kindlich-leichten Backnachmittag!"</div>
-    </div>
     <div class="polaroid-container" id="media-container-3">
       <img id="img-kat3" src="kat3_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Hier haben wir Codenames in jeder Konstellation gespielt und hatten einen ganz toll kindlich-leichten Backnachmittag!"</div>
     </div>
   </div>
 
   <!-- SLIDE 4 -->
   <div class="slide bg-4">
-    <div class="slide-title-box">
-      <div class="slide-title">"Ein anderer Mahase hat Geburtstag und wir waren ein Haufen Süßmäuse"</div>
-    </div>
     <div class="polaroid-container">
       <img src="kat4_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Ein anderer Mahase hat Geburtstag und wir waren ein Haufen Süßmäuse"</div>
     </div>
   </div>
 
   <!-- SLIDE 5 -->
   <div class="slide bg-5">
-    <div class="slide-title-box">
-      <div class="slide-title">"Mahasen-Ausflug"</div>
-    </div>
     <div class="polaroid-container">
       <img id="img-kat5" src="kat5_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Mahasen-Ausflug"</div>
     </div>
   </div>
 
   <!-- SLIDE 6 -->
   <div class="slide bg-1">
-    <div class="slide-title-box">
-      <div class="slide-title">"Endlich das obligatorische Kennenlernen!"</div>
-    </div>
     <div class="polaroid-container">
       <img src="kat6_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Endlich das obligatorische Kennenlernen!"</div>
     </div>
   </div>
 
   <!-- SLIDE 7 -->
   <div class="slide bg-2">
-    <div class="slide-title-box">
-      <div class="slide-title">"Dieses Treffen mussten viele lange verarbeiten.."</div>
-    </div>
     <div class="polaroid-container">
       <img id="img-kat7" src="kat7_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Dieses Treffen mussten viele lange verarbeiten.."</div>
     </div>
   </div>
 
   <!-- SLIDE 8 -->
   <div class="slide bg-3">
-    <div class="slide-title-box">
-      <div class="slide-title">"Unser erster, mausiger CSD!"</div>
-    </div>
     <div class="polaroid-container">
       <img id="img-kat8" src="kat8_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Unser erster, mausiger CSD!"</div>
     </div>
   </div>
 
   <!-- SLIDE 9 -->
   <div class="slide bg-4">
-    <div class="slide-title-box">
-      <div class="slide-title">"Und sogar Bachatatanzen waren wir."</div>
-    </div>
     <div class="polaroid-container">
       <img src="kat9_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+    <div class="slide-title-box">
+      <div class="slide-title">"Und sogar Bachatatanzen waren wir."</div>
     </div>
   </div>
 
@@ -502,7 +500,6 @@
       currentSlide++;
       showSlide(currentSlide);
     } else {
-      // Erst NACH allen 9 Kategorien: Anzeige der Frage
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
       document.getElementById('monopolySlide').classList.add('active');
       progressContainer.style.display = 'none';
