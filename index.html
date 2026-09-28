@@ -1,0 +1,505 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Cute Wrapped Rückblick</title>
+  <style>
+    :root {
+      --bg-color-1: #ffb7b2;
+      --bg-color-2: #ffdac1;
+      --bg-color-3: #e2f0cb;
+      --bg-color-4: #b5ead7;
+      --bg-color-5: #c7ceea;
+      --text-color: #2b2b2b;
+      --accent-color: #ff3366;
+    }
+
+    * {
+      box-sizing: border-box;
+      margin: 0;
+      padding: 0;
+      font-family: 'Comic Sans MS', 'Chalkboard SE', 'Fredoka', sans-serif;
+    }
+
+    body {
+      background-color: #121212;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      color: var(--text-color);
+      overflow: hidden;
+    }
+
+    .app-container {
+      width: 100%;
+      max-width: 430px;
+      height: 100vh;
+      max-height: 932px;
+      position: relative;
+      background: #000;
+      box-shadow: 0 10px 30px rgba(0,0,0,0.5);
+      display: flex;
+      flex-direction: column;
+      overflow: hidden;
+    }
+
+    /* Progress Indicators */
+    .progress-bar-container {
+      position: absolute;
+      top: 12px;
+      left: 10px;
+      right: 10px;
+      display: flex;
+      gap: 4px;
+      z-index: 50;
+    }
+
+    .progress-bar {
+      flex: 1;
+      height: 4px;
+      background: rgba(255, 255, 255, 0.4);
+      border-radius: 2px;
+      overflow: hidden;
+    }
+
+    .progress-fill {
+      width: 0%;
+      height: 100%;
+      background: #fff;
+      transition: width 0.1s linear;
+    }
+
+    /* Screen Slides */
+    .slide {
+      position: absolute;
+      inset: 0;
+      display: none;
+      flex-direction: column;
+      align-items: center;
+      justify-content: space-between;
+      padding: 50px 20px 40px;
+      text-align: center;
+      z-index: 10;
+    }
+
+    .slide.active {
+      display: flex;
+    }
+
+    /* Dynamic Neon Pastell Backgrounds */
+    .bg-1 { background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 99%); }
+    .bg-2 { background: linear-gradient(135deg, #a1c4fd 0%, #c2e9fb 100%); }
+    .bg-3 { background: linear-gradient(135deg, #ffc3a0 0%, #ffafbd 100%); }
+    .bg-4 { background: linear-gradient(135deg, #e0c3fc 0%, #8ec5fc 100%); }
+    .bg-5 { background: linear-gradient(135deg, #f093fb 0%, #f5576c 100%); }
+
+    /* Polaroid Frame */
+    .polaroid-container {
+      position: relative;
+      width: 270px;
+      height: 360px; /* 3:4 aspect ratio + border */
+      background: #fff;
+      padding: 12px 12px 45px 12px;
+      box-shadow: 0 15px 25px rgba(0,0,0,0.25);
+      transform: rotate(-2deg);
+      transition: transform 0.3s ease;
+      margin: 20px 0;
+      cursor: pointer;
+    }
+
+    .polaroid-container:hover {
+      transform: rotate(0deg) scale(1.02);
+    }
+
+    .polaroid-media {
+      width: 100%;
+      height: 100%;
+      object-fit: cover;
+      background: #eee;
+    }
+
+    /* Story Text Styles */
+    .slide-title {
+      font-size: 1.5rem;
+      font-weight: 900;
+      color: #fff;
+      text-shadow: 2px 2px 0px #000, -1px -1px 0 #000, 1px -1px 0 #000, -1px 1px 0 #000;
+      line-height: 1.3;
+      z-index: 20;
+    }
+
+    /* Navigation Click Zones */
+    .nav-zone {
+      position: absolute;
+      top: 0;
+      bottom: 0;
+      width: 30%;
+      z-index: 30;
+    }
+    .nav-left { left: 0; }
+    .nav-right { right: 0; }
+
+    /* Monopoly Full Background Slide */
+    .full-bg-slide {
+      position: absolute;
+      inset: 0;
+      background-size: cover;
+      background-position: center;
+      display: flex;
+      flex-direction: column;
+      justify-content: flex-end;
+      padding: 40px 20px;
+    }
+
+    .overlay-card {
+      background: rgba(255, 255, 255, 0.9);
+      backdrop-filter: blur(8px);
+      padding: 25px 20px;
+      border-radius: 20px;
+      box-shadow: 0 10px 25px rgba(0,0,0,0.3);
+      text-align: center;
+    }
+
+    .overlay-title {
+      font-size: 1.3rem;
+      font-weight: bold;
+      color: #333;
+      margin-bottom: 20px;
+    }
+
+    /* Buttons */
+    .btn-group {
+      display: flex;
+      flex-direction: column;
+      gap: 12px;
+    }
+
+    .btn {
+      background: #ff3366;
+      color: white;
+      border: none;
+      padding: 14px 20px;
+      border-radius: 50px;
+      font-size: 1rem;
+      font-weight: bold;
+      cursor: pointer;
+      box-shadow: 0 4px 10px rgba(255, 51, 102, 0.4);
+      transition: all 0.2s;
+    }
+
+    .btn:active {
+      transform: scale(0.96);
+    }
+
+    .btn-secondary { background: #6c5ce7; box-shadow: 0 4px 10px rgba(108, 92, 231, 0.4); }
+    .btn-outline { background: #fff; color: #333; border: 2px solid #333; box-shadow: none; }
+
+    /* Modal Alert for NO Button */
+    .modal {
+      display: none;
+      position: absolute;
+      inset: 0;
+      background: rgba(0,0,0,0.7);
+      z-index: 100;
+      align-items: center;
+      justify-content: center;
+      padding: 20px;
+    }
+
+    .modal-content {
+      background: #fff;
+      padding: 30px;
+      border-radius: 20px;
+      text-align: center;
+      animation: pop 0.3s ease;
+    }
+
+    @keyframes pop {
+      0% { transform: scale(0.8); }
+      100% { transform: scale(1); }
+    }
+  </style>
+</head>
+<body>
+
+<div class="app-container">
+  <!-- Progress Bar -->
+  <div class="progress-bar-container" id="progressBarContainer"></div>
+
+  <!-- Interactive Slide Navigation Areas -->
+  <div class="nav-zone nav-left" onclick="prevMedia()"></div>
+  <div class="nav-zone nav-right" onclick="nextMedia()"></div>
+
+  <!-- SLIDE 1 -->
+  <div class="slide bg-1 active">
+    <div class="slide-title">"Ring ring, ein Mahase hat Geburtstag. Happy Birthday! Schau, was wir schon alles erlebt haben:"</div>
+    <div class="polaroid-container">
+      <img src="kat1_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 2 -->
+  <div class="slide bg-2">
+    <div class="slide-title">"Unsere ersten Wg-Fotos zusammen, von unserem ersten Ausflug"</div>
+    <div class="polaroid-container">
+      <img id="img-kat2" src="kat2_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 3 -->
+  <div class="slide bg-3">
+    <div class="slide-title">"Hier haben wir Codenames in jeder Konstellation gespielt und hatten einen ganz toll kindlich-leichten Backnachmittag!"</div>
+    <div class="polaroid-container" id="media-container-3">
+      <!-- Dynamic Photo or Video -->
+      <img id="img-kat3" src="kat3_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 4 -->
+  <div class="slide bg-4">
+    <div class="slide-title">"Ein anderer Mahase hat Geburtstag und wir waren ein Haufen Süßmäuse"</div>
+    <div class="polaroid-container">
+      <img src="kat4_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 5 -->
+  <div class="slide bg-5">
+    <div class="slide-title">"Mahasen-Ausflug"</div>
+    <div class="polaroid-container">
+      <img id="img-kat5" src="kat5_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 6 -->
+  <div class="slide bg-1">
+    <div class="slide-title">"Endlich das obligatorische Kennenlernen!"</div>
+    <div class="polaroid-container">
+      <img src="kat6_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 7 -->
+  <div class="slide bg-2">
+    <div class="slide-title">"Dieses Treffen mussten viele lange verarbeiten.."</div>
+    <div class="polaroid-container">
+      <img id="img-kat7" src="kat7_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 8 -->
+  <div class="slide bg-3">
+    <div class="slide-title">"Unser erster, mausiger CSD!"</div>
+    <div class="polaroid-container">
+      <img id="img-kat8" src="kat8_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- SLIDE 9 -->
+  <div class="slide bg-4">
+    <div class="slide-title">"Und sogar Bachatatanzen waren wir."</div>
+    <div class="polaroid-container">
+      <img src="kat9_1.jpg" class="polaroid-media" alt="Foto">
+    </div>
+  </div>
+
+  <!-- MONOPOLY QUESTION SLIDE -->
+  <div class="slide full-bg-slide" id="monopolySlide" style="background-image: url('monopoly_bg.jpg');">
+    <div class="overlay-card">
+      <div class="overlay-title" id="monopolyTitle">
+        "Jetzt habe ich nur noch eine wichtige Frage: Möchtest du noch mehr Monopoly Deal mit mir spielen?"
+      </div>
+      <div class="btn-group" id="questionButtons">
+        <button class="btn" onclick="answerYes()">Ja!</button>
+        <button class="btn btn-secondary" onclick="answerDeal()">Kommt auf den Deal an</button>
+        <button class="btn btn-outline" onclick="answerNo()">Nein</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- DATE SELECTION SLIDE -->
+  <div class="slide bg-5" id="dateSlide">
+    <div class="overlay-card" style="width: 100%;">
+      <div class="overlay-title" id="dateTitle">Juhu! Wann?</div>
+      <form action="https://formspree.io/f/woealina@gmail.com" method="POST" id="dateForm" class="btn-group">
+        <input type="hidden" name="auswahl" id="selectedDateInput">
+        <button type="button" class="btn" onclick="selectDate('19. Oktober')">19. Oktober</button>
+        <button type="button" class="btn" onclick="selectDate('24. Oktober')">24. Oktober</button>
+        <button type="button" class="btn" onclick="selectDate('25. Oktober')">25. Oktober</button>
+        <button type="button" class="btn" onclick="selectDate('02. November')">02. November</button>
+        <button type="button" class="btn" onclick="selectDate('04. November')">04. November</button>
+        <button type="button" class="btn btn-secondary" onclick="selectDate('ganz egal!')">ganz egal!</button>
+      </form>
+    </div>
+  </div>
+
+  <!-- NO-MODAL POPUP -->
+  <div class="modal" id="noModal">
+    <div class="modal-content">
+      <h2>Überleg nochmal! 🥺</h2>
+      <p style="margin: 15px 0;">Das kann nicht deine finale Antwort sein...</p>
+      <button class="btn" onclick="closeModal()">Nocheinmal versuchen</button>
+    </div>
+  </div>
+</div>
+
+<script>
+  // Slide Content Media Definitions
+  const slidesData = [
+    { type: 1, items: ['kat1_1.jpg'] },
+    { type: 2, items: ['kat2_1.jpg', 'kat2_2.jpg', 'kat2_3.jpg', 'kat2_4.jpg'] },
+    { type: 3, items: [
+        { type: 'img', src: 'kat3_1.jpg' },
+        { type: 'img', src: 'kat3_2.jpg' },
+        { type: 'img', src: 'kat3_3.jpg' },
+        { type: 'img', src: 'kat3_4.jpg' },
+        { type: 'video', src: 'kat3_video.mp4' }
+      ] 
+    },
+    { type: 4, items: ['kat4_1.jpg'] },
+    { type: 5, items: ['kat5_1.jpg', 'kat5_2.jpg'] },
+    { type: 6, items: ['kat6_1.jpg'] },
+    { type: 7, items: ['kat7_1.jpg', 'kat7_2.jpg'] },
+    { type: 8, items: ['kat8_1.jpg', 'kat8_2.jpg', 'kat8_3.jpg', 'kat8_4.jpg', 'kat8_5.jpg'] },
+    { type: 9, items: ['kat9_1.jpg'] }
+  ];
+
+  let currentSlide = 0;
+  let currentSubIndex = 0;
+  let slideTimer;
+
+  // Setup Progress Bars
+  const progressContainer = document.getElementById('progressBarContainer');
+  slidesData.forEach((_, idx) => {
+    const bar = document.createElement('div');
+    bar.className = 'progress-bar';
+    bar.innerHTML = `<div class="progress-fill" id="fill-${idx}"></div>`;
+    progressContainer.appendChild(bar);
+  });
+
+  function showSlide(index) {
+    const slides = document.querySelectorAll('.slide');
+    slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    
+    // Update progress bar visuals
+    slidesData.forEach((_, i) => {
+      const fill = document.getElementById(`fill-${i}`);
+      if (i < index) fill.style.width = '100%';
+      else if (i > index) fill.style.width = '0%';
+    });
+
+    currentSubIndex = 0;
+    updateMedia();
+    startTimer();
+  }
+
+  function updateMedia() {
+    if (currentSlide >= slidesData.length) return;
+
+    const data = slidesData[currentSlide];
+    const currentItem = data.items[currentSubIndex];
+
+    if (currentSlide === 2) { // Special Video Handling for Category 3
+      const container = document.getElementById('media-container-3');
+      if (typeof currentItem === 'object' && currentItem.type === 'video') {
+        container.innerHTML = `<video class="polaroid-media" autoplay loop muted playsinline src="${currentItem.src}"></video>`;
+      } else {
+        const src = typeof currentItem === 'object' ? currentItem.src : currentItem;
+        container.innerHTML = `<img src="${src}" class="polaroid-media" alt="Foto">`;
+      }
+    } else {
+      const imgElement = document.querySelector(`.slide.active .polaroid-media`);
+      if (imgElement) imgElement.src = currentItem;
+    }
+
+    // Fill current progress bar proportionally
+    const fill = document.getElementById(`fill-${currentSlide}`);
+    const percentage = ((currentSubIndex + 1) / data.items.length) * 100;
+    fill.style.width = `${percentage}%`;
+  }
+
+  function nextMedia() {
+    if (currentSlide >= slidesData.length) return;
+    
+    const data = slidesData[currentSlide];
+    if (currentSubIndex < data.items.length - 1) {
+      currentSubIndex++;
+      updateMedia();
+    } else {
+      nextSlide();
+    }
+  }
+
+  function prevMedia() {
+    if (currentSlide >= slidesData.length) return;
+
+    if (currentSubIndex > 0) {
+      currentSubIndex--;
+      updateMedia();
+    } else if (currentSlide > 0) {
+      currentSlide--;
+      showSlide(currentSlide);
+    }
+  }
+
+  function nextSlide() {
+    clearInterval(slideTimer);
+    if (currentSlide < slidesData.length - 1) {
+      currentSlide++;
+      showSlide(currentSlide);
+    } else {
+      // Transition to Monopoly Question
+      document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
+      document.getElementById('monopolySlide').classList.add('active');
+      progressContainer.style.display = 'none';
+    }
+  }
+
+  function startTimer() {
+    clearInterval(slideTimer);
+    slideTimer = setInterval(() => {
+      nextMedia();
+    }, 3500);
+  }
+
+  // Question Logic
+  function answerYes() {
+    document.getElementById('dateTitle').innerText = "Juhu! Wann?";
+    goToDateSlide();
+  }
+
+  function answerDeal() {
+    document.getElementById('dateTitle').innerText = "Na gut, du darfst auch anfangen. Wann spielen wir?";
+    goToDateSlide();
+  }
+
+  function answerNo() {
+    document.getElementById('noModal').style.display = 'flex';
+  }
+
+  function closeModal() {
+    document.getElementById('noModal').style.display = 'none';
+  }
+
+  function goToDateSlide() {
+    document.getElementById('monopolySlide').classList.remove('active');
+    document.getElementById('dateSlide').classList.add('active');
+  }
+
+  // Send Email Response
+  function selectDate(date) {
+    const email = "woealina@gmail.com";
+    const subject = encodeURIComponent("Monopoly Deal Date!");
+    const body = encodeURIComponent(`Ich habe deine Wrapped Story angeschaut! Lass uns am ${date} Monopoly Deal spielen! 🎉`);
+    
+    // Direct Mailto fallback
+    window.location.href = `mailto:${email}?subject=${subject}&body=${body}`;
+  }
+
+  // Start App
+  showSlide(0);
+</script>
+</body>
+</html>
