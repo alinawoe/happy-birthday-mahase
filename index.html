@@ -87,7 +87,7 @@
     }
 
     .slide.active {
-      display: flex;
+      display: flex !important;
     }
 
     /* Pastell-Neon Aesthetic Gradients */
@@ -133,7 +133,6 @@
     }
 
     .polaroid-container::before {
-      /* Cute Washi Tape effect */
       content: '';
       position: absolute;
       top: -12px;
@@ -168,11 +167,11 @@
 
     /* Monopoly Full Background Slide */
     .full-bg-slide {
+      display: none;
       position: absolute;
       inset: 0;
       background-size: cover;
       background-position: center;
-      display: flex;
       flex-direction: column;
       justify-content: flex-end;
       padding: 30px 20px;
@@ -362,7 +361,7 @@
     </div>
   </div>
 
-  <!-- MONOPOLY QUESTION SLIDE (Erst NACH allen 9 Kategorien!) -->
+  <!-- MONOPOLY QUESTION SLIDE -->
   <div class="slide full-bg-slide" id="monopolySlide" style="background-image: url('monopoly_bg.jpg');">
     <div class="overlay-card">
       <div class="overlay-title" id="monopolyTitle">
@@ -435,8 +434,8 @@
   });
 
   function showSlide(index) {
-    const slides = document.querySelectorAll('.slide');
-    slides.forEach((s, i) => s.classList.toggle('active', i === index));
+    const storySlides = document.querySelectorAll('.slide:not(#monopolySlide):not(#dateSlide)');
+    storySlides.forEach((s, i) => s.classList.toggle('active', i === index));
     
     slidesData.forEach((_, i) => {
       const fill = document.getElementById(`fill-${i}`);
@@ -503,10 +502,11 @@
       currentSlide++;
       showSlide(currentSlide);
     } else {
-      // NACH KATEGORIE 9: Umschalten auf die Monopoly Frage
+      // Erst NACH allen 9 Kategorien: Anzeige der Frage
       document.querySelectorAll('.slide').forEach(s => s.classList.remove('active'));
       document.getElementById('monopolySlide').classList.add('active');
       progressContainer.style.display = 'none';
+      document.querySelectorAll('.nav-zone').forEach(n => n.style.display = 'none');
     }
   }
 
