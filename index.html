@@ -14,7 +14,7 @@
     }
 
     body {
-      background-color: #0d0f12;
+      background-color: #050608;
       display: flex;
       justify-content: center;
       align-items: center;
@@ -29,9 +29,9 @@
       height: 100vh;
       max-height: 880px;
       position: relative;
-      background: #111;
+      background: #000000;
       border-radius: 24px;
-      box-shadow: 0 20px 50px rgba(0,0,0,0.6);
+      box-shadow: 0 20px 50px rgba(0,0,0,0.8);
       display: flex;
       flex-direction: column;
       overflow: hidden;
@@ -51,7 +51,7 @@
     .progress-bar {
       flex: 1;
       height: 4px;
-      background: rgba(255, 255, 255, 0.3);
+      background: rgba(255, 255, 255, 0.2);
       border-radius: 10px;
       overflow: hidden;
     }
@@ -71,8 +71,9 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: space-between;
-      padding: 40px 20px 40px;
+      justify-content: center; /* Fotos vertikal mittig ausrichten */
+      gap: 30px;
+      padding: 50px 20px 40px;
       text-align: center;
       z-index: 10;
       animation: fadeIn 0.4s ease-in-out;
@@ -87,12 +88,12 @@
       display: flex !important;
     }
 
-    /* Pastell-Neon Aesthetic Gradients */
-    .bg-1 { background: linear-gradient(145deg, #ff9a9e, #fecfef, #a1c4fd); }
-    .bg-2 { background: linear-gradient(145deg, #a1c4fd, #c2e9fb, #e0c3fc); }
-    .bg-3 { background: linear-gradient(145deg, #e0c3fc, #8ec5fc, #b5ead7); }
-    .bg-4 { background: linear-gradient(145deg, #b5ead7, #ffdac1, #ffb7b2); }
-    .bg-5 { background: linear-gradient(145deg, #ffdac1, #ffb7b2, #fecfef); }
+    /* Dunklere Pastell-Neon Hintergrund-Verläufe */
+    .bg-1 { background: linear-gradient(145deg, #7a2846, #4a154b, #1d2b53); }
+    .bg-2 { background: linear-gradient(145deg, #1b3b6f, #21295c, #4b1d52); }
+    .bg-3 { background: linear-gradient(145deg, #3d1e6d, #1e3d59, #173f5f); }
+    .bg-4 { background: linear-gradient(145deg, #184d47, #3d2352, #5a1846); }
+    .bg-5 { background: linear-gradient(145deg, #5c2040, #2c1930, #1f4247); }
 
     /* Enhanced Polaroid Frame */
     .polaroid-container {
@@ -102,10 +103,10 @@
       background: #ffffff;
       padding: 14px 14px 50px 14px;
       border-radius: 12px;
-      box-shadow: 0 18px 35px rgba(0,0,0,0.25);
+      box-shadow: 0 18px 40px rgba(0,0,0,0.6);
       transform: rotate(-1.5deg);
       transition: all 0.3s cubic-bezier(0.175, 0.885, 0.32, 1.275);
-      margin-top: 15px;
+      flex-shrink: 0;
     }
 
     .polaroid-container::before {
@@ -116,8 +117,8 @@
       transform: translateX(-50%);
       width: 90px;
       height: 26px;
-      background: rgba(255, 255, 255, 0.6);
-      border: 1px dashed rgba(0,0,0,0.15);
+      background: rgba(255, 255, 255, 0.4);
+      border: 1px dashed rgba(0,0,0,0.2);
       backdrop-filter: blur(4px);
       z-index: 25;
     }
@@ -127,19 +128,18 @@
       height: 100%;
       object-fit: cover;
       border-radius: 6px;
-      background: #f0f0f0;
+      background: #111;
     }
 
-    /* Cute Wrapped Card Title - Jetzt unten */
+    /* Cute Wrapped Card Title */
     .slide-title-box {
-      background: rgba(255, 255, 255, 0.25);
-      backdrop-filter: blur(12px);
-      -webkit-backdrop-filter: blur(12px);
-      border: 2px solid rgba(255, 255, 255, 0.4);
+      background: rgba(0, 0, 0, 0.45);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       border-radius: 20px;
       padding: 18px 20px;
-      margin-bottom: 10px;
-      box-shadow: 0 8px 32px rgba(31, 38, 135, 0.15);
+      box-shadow: 0 8px 32px rgba(0, 0, 0, 0.4);
       z-index: 20;
       width: 100%;
     }
@@ -147,9 +147,9 @@
     .slide-title {
       font-size: 1.2rem;
       font-weight: bold;
-      color: #2d3436;
+      color: #ffffff;
       line-height: 1.4;
-      text-shadow: 0 1px 2px rgba(255,255,255,0.6);
+      letter-spacing: -0.04em; /* Zeichenabstand -40 */
     }
 
     /* Navigation Click Zones */
@@ -176,22 +176,23 @@
     }
 
     .overlay-card {
-      background: rgba(255, 255, 255, 0.85);
+      background: rgba(18, 18, 20, 0.85);
       backdrop-filter: blur(16px);
       -webkit-backdrop-filter: blur(16px);
-      border: 2px solid rgba(255, 255, 255, 0.6);
+      border: 1px solid rgba(255, 255, 255, 0.2);
       padding: 24px 20px;
       border-radius: 24px;
-      box-shadow: 0 15px 35px rgba(0,0,0,0.3);
+      box-shadow: 0 15px 35px rgba(0,0,0,0.6);
       text-align: center;
     }
 
     .overlay-title {
       font-size: 1.25rem;
       font-weight: bold;
-      color: #2d3436;
+      color: #ffffff;
       margin-bottom: 20px;
       line-height: 1.4;
+      letter-spacing: -0.04em; /* Zeichenabstand -40 */
     }
 
     /* Cute Buttons */
@@ -202,7 +203,7 @@
     }
 
     .btn {
-      background: linear-gradient(135deg, #ff758c 0%, #ff7eb3 100%);
+      background: linear-gradient(135deg, #ff416c 0%, #ff4b2b 100%);
       color: white;
       border: none;
       padding: 14px 20px;
@@ -210,8 +211,9 @@
       font-size: 1rem;
       font-weight: bold;
       cursor: pointer;
-      box-shadow: 0 6px 15px rgba(255, 117, 140, 0.4);
+      box-shadow: 0 6px 15px rgba(255, 65, 108, 0.4);
       transition: all 0.2s ease;
+      letter-spacing: -0.04em; /* Zeichenabstand -40 */
     }
 
     .btn:active {
@@ -219,15 +221,15 @@
     }
 
     .btn-secondary { 
-      background: linear-gradient(135deg, #a18cd1 0%, #fbc2eb 100%); 
-      box-shadow: 0 6px 15px rgba(161, 140, 209, 0.4);
+      background: linear-gradient(135deg, #8a2387 0%, #e94057 100%); 
+      box-shadow: 0 6px 15px rgba(138, 35, 135, 0.4);
     }
 
     .btn-outline { 
-      background: #ffffff; 
-      color: #2d3436; 
-      border: 2px solid #dfe6e9; 
-      box-shadow: 0 4px 10px rgba(0,0,0,0.05); 
+      background: rgba(255, 255, 255, 0.1); 
+      color: #ffffff; 
+      border: 1px solid rgba(255, 255, 255, 0.3); 
+      box-shadow: 0 4px 10px rgba(0,0,0,0.2); 
     }
 
     /* Modal Popup */
@@ -235,8 +237,8 @@
       display: none;
       position: absolute;
       inset: 0;
-      background: rgba(0,0,0,0.65);
-      backdrop-filter: blur(6px);
+      background: rgba(0,0,0,0.8);
+      backdrop-filter: blur(8px);
       z-index: 100;
       align-items: center;
       justify-content: center;
@@ -244,13 +246,18 @@
     }
 
     .modal-content {
-      background: #ffffff;
-      color: #2d3436;
+      background: #1c1c1e;
+      color: #ffffff;
       padding: 28px 24px;
       border-radius: 24px;
       text-align: center;
-      box-shadow: 0 20px 40px rgba(0,0,0,0.3);
+      box-shadow: 0 20px 40px rgba(0,0,0,0.6);
+      border: 1px solid rgba(255, 255, 255, 0.15);
       animation: pop 0.3s ease;
+    }
+
+    .modal-content h2, .modal-content p {
+      letter-spacing: -0.04em; /* Zeichenabstand -40 */
     }
 
     @keyframes pop {
@@ -392,7 +399,7 @@
   <div class="modal" id="noModal">
     <div class="modal-content">
       <h2 style="font-size: 1.5rem; margin-bottom: 10px;">Überleg nochmal! 🥺</h2>
-      <p style="margin-bottom: 20px; color: #636e72;">Das kann doch nicht deine Antwort sein...</p>
+      <p style="margin-bottom: 20px; color: #b0b0b0;">Das kann doch nicht deine Antwort sein...</p>
       <button class="btn" onclick="closeModal()">Nocheinmal versuchen</button>
     </div>
   </div>
