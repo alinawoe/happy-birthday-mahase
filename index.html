@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>Cute Wrapped Rückblick</title>
+  <title>Happy Birthday Mahase </title>
   
   <style>
     * {
@@ -71,7 +71,7 @@
       display: none;
       flex-direction: column;
       align-items: center;
-      justify-content: center; /* Fotos vertikal mittig ausrichten */
+      justify-content: center;
       gap: 30px;
       padding: 50px 20px 40px;
       text-align: center;
@@ -149,7 +149,7 @@
       font-weight: bold;
       color: #ffffff;
       line-height: 1.4;
-      letter-spacing: -0.04em; /* Zeichenabstand -40 */
+      letter-spacing: -0.04em;
     }
 
     /* Navigation Click Zones */
@@ -192,7 +192,7 @@
       color: #ffffff;
       margin-bottom: 20px;
       line-height: 1.4;
-      letter-spacing: -0.04em; /* Zeichenabstand -40 */
+      letter-spacing: -0.04em;
     }
 
     /* Cute Buttons */
@@ -213,7 +213,7 @@
       cursor: pointer;
       box-shadow: 0 6px 15px rgba(255, 65, 108, 0.4);
       transition: all 0.2s ease;
-      letter-spacing: -0.04em; /* Zeichenabstand -40 */
+      letter-spacing: -0.04em;
     }
 
     .btn:active {
@@ -257,7 +257,7 @@
     }
 
     .modal-content h2, .modal-content p {
-      letter-spacing: -0.04em; /* Zeichenabstand -40 */
+      letter-spacing: -0.04em;
     }
 
     @keyframes pop {
@@ -408,7 +408,7 @@
 <script>
   const slidesData = [
     { items: ['kat1_1.jpg'] },
-    { items: ['kat2_1.jpg', 'kat2_2.jpg', 'kat2_3.jpg', 'kat2_4.jpg'] },
+    { items: ['kat2_1.jpg', 'kat2_2.jpg', 'kat2_3.jpg'] }, /* Kategorie 2 auf 3 Bilder reduziert */
     { items: [
         { type: 'img', src: 'kat3_1.jpg' },
         { type: 'img', src: 'kat3_2.jpg' },
@@ -428,6 +428,7 @@
   let currentSlide = 0;
   let currentSubIndex = 0;
   let slideTimer;
+  let isPausedForVideo = false; // Neuer Status für das Video
 
   // Setup Progress Bars
   const progressContainer = document.getElementById('progressBarContainer');
@@ -449,6 +450,7 @@
     });
 
     currentSubIndex = 0;
+    isPausedForVideo = false; // Zurücksetzen beim Slide-Wechsel
     updateMedia();
     startTimer();
   }
@@ -459,9 +461,19 @@
     const data = slidesData[currentSlide];
     const currentItem = data.items[currentSubIndex];
 
+    // Prüfen, ob das aktuelle Element ein Video ist
+    const isVideo = (currentSlide === 2 && typeof currentItem === 'object' && currentItem.type === 'video');
+
+    if (isVideo) {
+      isPausedForVideo = true; // Timer stoppen, bis getippt wird
+      clearInterval(slideTimer);
+    } else {
+      isPausedForVideo = false;
+    }
+
     if (currentSlide === 2) {
       const container = document.getElementById('media-container-3');
-      if (typeof currentItem === 'object' && currentItem.type === 'video') {
+      if (isVideo) {
         container.innerHTML = `<video class="polaroid-media" autoplay loop muted playsinline src="${currentItem.src}"></video>`;
       } else {
         const src = typeof currentItem === 'object' ? currentItem.src : currentItem;
@@ -484,6 +496,10 @@
     if (currentSubIndex < data.items.length - 1) {
       currentSubIndex++;
       updateMedia();
+      // Wenn wir nach dem Video weitertippen, Timer für die nächsten Slides wieder starten
+      if (!isPausedForVideo) {
+        startTimer();
+      }
     } else {
       nextSlide();
     }
@@ -495,6 +511,9 @@
     if (currentSubIndex > 0) {
       currentSubIndex--;
       updateMedia();
+      if (!isPausedForVideo) {
+        startTimer();
+      }
     } else if (currentSlide > 0) {
       currentSlide--;
       showSlide(currentSlide);
@@ -516,6 +535,9 @@
 
   function startTimer() {
     clearInterval(slideTimer);
+    // Wenn das Video aktiv ist, keinen automatischen Timer starten
+    if (isPausedForVideo) return;
+
     slideTimer = setInterval(() => {
       nextMedia();
     }, 2800);
